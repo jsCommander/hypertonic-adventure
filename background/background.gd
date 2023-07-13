@@ -1,6 +1,6 @@
 extends ParallaxBackground
 
-@export var camera_velocity: Vector2 = Vector2( -100,0 );
+@export var camera_speed: int = 100;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,5 +9,5 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var new_offset: Vector2 = get_scroll_offset() + camera_velocity * delta
+	var new_offset: Vector2 = get_scroll_offset() + Vector2(-camera_speed, 0) * delta
 	set_scroll_offset( new_offset )

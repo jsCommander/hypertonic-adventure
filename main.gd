@@ -1,13 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://j0yw0w2611lj"]
-
-[ext_resource type="PackedScene" uid="uid://bifyngktaiiqf" path="res://objects/food.tscn" id="2_jowuy"]
-[ext_resource type="PackedScene" uid="uid://un50tj06argm" path="res://background/background.tscn" id="3_j7acc"]
-[ext_resource type="PackedScene" uid="uid://ckbuxkupire1y" path="res://hud/hud.tscn" id="4_8jn6c"]
-[ext_resource type="AudioStream" uid="uid://bi0llkqfpnyj3" path="res://assets/synthwave.mp3" id="5_n08ix"]
-[ext_resource type="PackedScene" uid="uid://b8jnerralx53t" path="res://characters/player.tscn" id="7_b6obr"]
-
-[sub_resource type="GDScript" id="GDScript_ctkgg"]
-script/source = "extends Node2D
+extends Node2D
 
 @export var food_scene: PackedScene
 @export var spawn_timeout: float = 1
@@ -20,7 +11,7 @@ script/source = "extends Node2D
 @onready var spawn_timer = $FoodSpawnTimer
 @onready var hud = $HUD
 @onready var player = $Player
-@onready var background = $Background
+@onready var background = $background
 
 enum SPAWN {DOWN = 1, UP = 2, PAUSE = 0}
 const spawns = [
@@ -80,7 +71,7 @@ func _on_food_spawn_timeout():
 
 func _set_spawn_timeout(timeout: float):
 	spawn_timer.wait_time = max(min_spawn_timeout, timeout)
-	print(\"spawn timeout: \", spawn_timer.wait_time)
+	print("spawn timeout: ", spawn_timer.wait_time)
 
 func _get_random_sequence(array):
 	return array[randi() % array.size()]
@@ -90,7 +81,7 @@ func _game_over():
 	background.camera_speed = 0
 	hud.set_game_over()
 	for node in get_children():
-		if node.has_method(\"despawn\"):
+		if node.has_method("despawn"):
 			node.despawn()
 
 func _game_start():
@@ -98,36 +89,3 @@ func _game_start():
 	background.camera_speed = 200
 	player.set_blood_pressure(start_blood_pressure)
 
-"
-
-[node name="main" type="Node2D"]
-script = SubResource("GDScript_ctkgg")
-food_scene = ExtResource("2_jowuy")
-min_spawn_timeout = 0.6
-
-[node name="Background" parent="." instance=ExtResource("3_j7acc")]
-
-[node name="Player" parent="." instance=ExtResource("7_b6obr")]
-position = Vector2(64, 128)
-jump_velocity = 350.0
-blood_pressure_increase = 20
-
-[node name="FoodSpawnTimer" type="Timer" parent="."]
-autostart = true
-
-[node name="DownSpawn" type="Node2D" parent="."]
-position = Vector2(352, 128)
-
-[node name="UpSpawn" type="Node2D" parent="."]
-position = Vector2(352, 96)
-
-[node name="HUD" parent="." instance=ExtResource("4_8jn6c")]
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_n08ix")
-autoplay = true
-
-[connection signal="blood_pressure_changed" from="Player" to="HUD" method="update_blood_pressure"]
-[connection signal="died" from="Player" to="." method="_game_over"]
-[connection signal="timeout" from="FoodSpawnTimer" to="." method="_on_food_spawn_timeout"]
-[connection signal="restart" from="HUD" to="." method="_game_start"]
