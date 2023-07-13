@@ -11,7 +11,7 @@ script/source = "extends Node2D
 
 @export var food_scene: PackedScene
 @export var spawn_timeout: float = 1
-@export var min_spawn_timeout: float = 0.5
+@export var min_spawn_timeout: float = 0.6
 @export var spawn_timeout_step: float = 0.1
 @export var start_blood_pressure: int = 90
 
@@ -64,6 +64,8 @@ func _on_food_spawn_timeout():
 	if spawn_sequence_index >= spawn_sequence.size():
 		spawn_sequence = _get_random_sequence(spawns)
 		spawn_sequence_index = 0
+		spawn_timeout -= spawn_timeout_step
+		_set_spawn_timeout(spawn_timeout)
 
 	var spawn = spawn_sequence[spawn_sequence_index]
 	if spawn == SPAWN.PAUSE:
@@ -103,7 +105,6 @@ func _game_start():
 [node name="main" type="Node2D"]
 script = SubResource("GDScript_ctkgg")
 food_scene = ExtResource("2_jowuy")
-min_spawn_timeout = 0.6
 
 [node name="Background" parent="." instance=ExtResource("3_j7acc")]
 
