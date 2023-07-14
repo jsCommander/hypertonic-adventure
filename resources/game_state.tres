@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="GameState" load_steps=2 format=3 uid="uid://bwkivs2o6mkkq"]
+
+[ext_resource type="Script" path="res://resources/game_state.gd" id="1_oxvh2"]
+
+[resource]
+script = ExtResource("1_oxvh2")
+camera_speed = 200.0
+default_spawn_timeout = 1.0
+min_spawn_timeout = 0.6
+spawn_timeout_step = 0.05
+default_blood_pressure = 90
+blood_pressure_death = 220
+blood_pressure_step = 50
+player_jump_velocity = 300.0

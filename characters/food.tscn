@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bifyngktaiiqf"]
+
+[ext_resource type="Script" path="res://characters/food.gd" id="1_gp2eu"]
+[ext_resource type="Resource" uid="uid://bwkivs2o6mkkq" path="res://resources/game_state.tres" id="2_0l2h6"]
+[ext_resource type="Texture2D" uid="uid://c7xrow4nuxfs3" path="res://assets/enemy/food.png" id="2_hhprq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ti2p"]
+size = Vector2(26, 26)
+
+[node name="Food" type="Area2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_gp2eu")
+game_state = ExtResource("2_0l2h6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, -16)
+shape = SubResource("RectangleShape2D_3ti2p")
+debug_color = Color(0.999107, 0, 0.123402, 0.42)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(16, -16)
+scale = Vector2(1.6, 1.6)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, -16)
+texture = ExtResource("2_hhprq")
+hframes = 4
+
+[connection signal="area_entered" from="." to="." method="_on_player_hit"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_leave"]

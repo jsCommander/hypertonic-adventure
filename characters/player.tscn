@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://b8jnerralx53t"]
+[gd_scene load_steps=19 format=3 uid="uid://b8jnerralx53t"]
 
 [ext_resource type="Script" path="res://characters/player.gd" id="1_lfnij"]
+[ext_resource type="Resource" uid="uid://bwkivs2o6mkkq" path="res://resources/game_state.tres" id="2_j6d6a"]
 [ext_resource type="Texture2D" uid="uid://cyrmkecth7vg1" path="res://assets/player/frog-4.png" id="2_k176g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_17cyc"]
@@ -115,6 +116,7 @@ size = Vector2(40, 26)
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_lfnij")
+game_state = ExtResource("2_j6d6a")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

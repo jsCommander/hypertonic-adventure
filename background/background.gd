@@ -1,6 +1,6 @@
 extends ParallaxBackground
 
-@export var camera_speed: int = 100;
+@export var camera_speed:= 100;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -45,7 +45,6 @@ sources/0 = SubResource("TileSetAtlasSource_l4yru")
 
 [node name="background" type="ParallaxBackground"]
 script = ExtResource("1_hss5s")
-camera_speed = 200
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_8np86")
