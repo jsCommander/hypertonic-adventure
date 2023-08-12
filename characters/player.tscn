@@ -1,8 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://b8jnerralx53t"]
+[gd_scene load_steps=22 format=3 uid="uid://b8jnerralx53t"]
 
 [ext_resource type="Script" path="res://characters/player.gd" id="1_lfnij"]
 [ext_resource type="Resource" uid="uid://bwkivs2o6mkkq" path="res://resources/game_state.tres" id="2_j6d6a"]
 [ext_resource type="Texture2D" uid="uid://cyrmkecth7vg1" path="res://assets/player/frog-4.png" id="2_k176g"]
+[ext_resource type="AudioStream" uid="uid://cqxhc8vemmofj" path="res://assets/sound_effects/jump.wav" id="3_7gif0"]
+[ext_resource type="AudioStream" uid="uid://dw2ie6y4p2byu" path="res://assets/sound_effects/eat.wav" id="5_4irny"]
+[ext_resource type="AudioStream" uid="uid://bh0idhrelqkva" path="res://assets/sound_effects/slide.wav" id="6_0wg3h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_17cyc"]
 atlas = ExtResource("2_k176g")
@@ -119,10 +122,13 @@ script = ExtResource("1_lfnij")
 game_state = ExtResource("2_j6d6a")
 metadata/_edit_group_ = true
 
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_7gif0")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(32, -32)
 sprite_frames = SubResource("SpriteFrames_h6mos")
-animation = &"jump"
+animation = &"slide"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(31.5, -32)
@@ -142,4 +148,16 @@ position = Vector2(31, -13)
 shape = SubResource("RectangleShape2D_t5gr6")
 debug_color = Color(0.999107, 0, 0.123402, 0.42)
 
+[node name="EatSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_4irny")
+
+[node name="SlideSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_0wg3h")
+
+[node name="SlideActiveTimer" type="Timer" parent="."]
+
+[node name="SlideDelayTimer" type="Timer" parent="."]
+
 [connection signal="area_entered" from="Hitbox" to="." method="_on_food_hit"]
+[connection signal="timeout" from="SlideActiveTimer" to="." method="_on_slide_active_timeout"]
+[connection signal="timeout" from="SlideDelayTimer" to="." method="_on_slide_delay_timeout"]

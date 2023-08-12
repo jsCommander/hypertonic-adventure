@@ -30,4 +30,5 @@ func _on_player_hit(body):
 
 
 func _on_screen_leave():
+	game_state.increase_score()
 	despawn()

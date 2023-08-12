@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckbuxkupire1y"]
+[gd_scene load_steps=5 format=3 uid="uid://ckbuxkupire1y"]
 
 [ext_resource type="Script" path="res://hud/HUD.gd" id="1_ose3j"]
 [ext_resource type="Texture2D" uid="uid://ydevld55qe5d" path="res://assets/heart.png" id="2_syew8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mxewy"]
 font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_j8b14"]
+line_spacing = 0.0
+font_size = 8
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_ose3j")
@@ -30,6 +34,34 @@ offset_left = 119.0
 offset_top = 128.0
 offset_right = 202.0
 offset_bottom = 159.0
-text = "RESTART?"
+text = "RESTART"
+
+[node name="ScoreText" type="Label" parent="."]
+offset_left = 215.0
+offset_top = 4.0
+offset_right = 274.0
+offset_bottom = 35.0
+text = "Score:"
+label_settings = SubResource("LabelSettings_mxewy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreValue" type="Label" parent="."]
+offset_left = 279.0
+offset_top = 4.0
+offset_right = 319.0
+offset_bottom = 35.0
+text = "0
+"
+label_settings = SubResource("LabelSettings_mxewy")
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = 215.0
+offset_top = 160.0
+offset_right = 319.0
+offset_bottom = 180.0
+text = "Develop by: jscommander"
+label_settings = SubResource("LabelSettings_j8b14")
 
 [connection signal="pressed" from="Button" to="." method="_restart"]

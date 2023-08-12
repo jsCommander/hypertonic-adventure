@@ -9,6 +9,8 @@ extends Node2D
 @onready var hud := $HUD
 @onready var player := $Player
 @onready var background := $Background
+@onready var sound_track := $SoundTrack
+@onready var game_over_sound := $GameOver
 
 var spawner_script := preload("res://scripts/spawn_manager.gd")
 const SPAWN := spawner_script.SPAWN
@@ -39,11 +41,16 @@ func _handle_game_state_change(state: GameState.STATE):
 		GameState.STATE.GAME_OVER:
 			spawn_timer.stop()
 			background.camera_speed = 0
+			sound_track.stop()
+			game_over_sound.play()
+
 			for node in get_children():
 				if node.has_method("despawn"):
 					node.despawn()
 		GameState.STATE.NEW_GAME:
 			spawn_timer.start()
+			sound_track.play()
+			game_over_sound.stop()
 			background.camera_speed = game_state.camera_speed
 
 func _set_timeout(timeout:float):

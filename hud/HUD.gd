@@ -5,11 +5,12 @@ extends CanvasLayer
 @onready var heart_sprite:= $HeartSprite
 @onready var blood_pressure_label:= $BloodPressure
 @onready var restart_button:= $Button
-
+@onready var score_value:= $ScoreValue
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	game_state.blood_pressure_changed.connect(_update_blood_pressure)
 	game_state.game_state_changed.connect(_handle_game_state_change)
+	game_state.score_changed.connect(_update_score)
 
 func _get_heart_frame(blood_pressure: int) -> int:
 	if blood_pressure < 140:
@@ -25,6 +26,9 @@ func _restart():
 func _update_blood_pressure(value: int):
 	blood_pressure_label.text = str(value)
 	heart_sprite.frame = _get_heart_frame(value)
+
+func _update_score(value: int):
+	score_value.text = str(value)
 
 func _handle_game_state_change(state: GameState.STATE):
 	match state:
