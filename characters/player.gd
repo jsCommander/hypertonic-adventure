@@ -24,6 +24,9 @@ func _ready():
 
 
 func _input(event):
+	if current_state == PlayerState.DEAD:
+		return
+
 	var is_mouse_click = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT
 	var is_touch = event is InputEventScreenTouch
 
@@ -106,7 +109,8 @@ func _start_slide_active_timer():
 
 func _on_slide_active_timeout():
 	slide_active_timer.stop()
-	_handle_state_change(PlayerState.SLIDE, PlayerState.RUN)
+	if current_state != PlayerState.DEAD:
+		_handle_state_change(PlayerState.SLIDE, PlayerState.RUN)
 
 func _start_slide_delay_timer():
 	slide_delay_timer.wait_time = game_state.player_slide_delay_timeout
